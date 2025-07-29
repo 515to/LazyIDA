@@ -547,7 +547,7 @@ class LazyIDA_t(idaapi.plugin_t):
             else:
                 BITS = 16
 
-        print("LazyIDA (v1.0.0.5) plugin has been loaded.")
+        print("LazyIDA (v1.1.0.0) plugin has been loaded.")
 
         # Register menu actions
         menu_actions = (
@@ -591,7 +591,7 @@ class LazyIDA_t(idaapi.plugin_t):
             addon.name = "LazyIDA"
             addon.producer = "Lays"
             addon.url = "https://github.com/L4ys/LazyIDA"
-            addon.version = "1.0.0.5"
+            addon.version = "1.1.0.0"
             idaapi.register_addon(addon)
 
             hx_actions = (
