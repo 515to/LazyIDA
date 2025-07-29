@@ -5,7 +5,7 @@ import idaapi
 import idautils
 import idc
 
-from PyQt5.Qt import QApplication
+from PySide6.QtWidgets import QApplication
 
 ACTION_CONVERT = ["lazyida:convert%d" % i for i in range(10)]
 ACTION_SCANVUL = "lazyida:scanvul"
