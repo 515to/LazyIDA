@@ -563,7 +563,7 @@ class LazyIDA_t(idaapi.plugin_t):
             else:
                 BITS = 16
 
-        print("LazyIDA (v1.0.0.5) plugin has been loaded.")
+        print("LazyIDA (v1.1.0.0) plugin has been loaded.")
 
         # Register menu actions
         menu_actions = (
