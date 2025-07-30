@@ -1,11 +1,27 @@
 from __future__ import division
 from __future__ import print_function
 from struct import unpack
-import idaapi
-import idautils
-import idc
 
-from PySide6.QtWidgets import QApplication
+# this plugin requires IDA 7.4 or newer
+try:
+    import idaapi
+    import idautils
+    import idc
+    import ida_pro
+    IDA_GLOBAL_SCOPE = sys.modules['__main__']
+    SUPPORTED_IDA = ida_pro.IDA_SDK_VERSION >= 740
+
+    if ida_pro.IDA_SDK_VERSION >= 920:
+        from PySide6.QtWidgets import QApplication
+    else:
+        from PyQt5.Qt import QApplication
+except:
+    SUPPORTED_IDA = False
+
+# is this deemed to be a compatible environment for the plugin to load?
+if not SUPPORTED_IDA:
+    print("Patching plugin is not compatible with this IDA version")
+
 
 ACTION_CONVERT = ["lazyida:convert%d" % i for i in range(10)]
 ACTION_SCANVUL = "lazyida:scanvul"
@@ -591,7 +607,7 @@ class LazyIDA_t(idaapi.plugin_t):
             addon.name = "LazyIDA"
             addon.producer = "Lays"
             addon.url = "https://github.com/L4ys/LazyIDA"
-            addon.version = "1.0.0.5"
+            addon.version = "1.1.0.0"
             idaapi.register_addon(addon)
 
             hx_actions = (
