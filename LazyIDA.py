@@ -2,9 +2,6 @@ from __future__ import division
 from __future__ import print_function
 from struct import unpack
 
-import sys
-IDA_GLOBAL_SCOPE = sys.modules['__main__']
-
 # this plugin requires IDA 7.4 or newer
 try:
     import idaapi
