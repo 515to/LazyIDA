@@ -30,6 +30,7 @@ ACTION_GOTOCLIPEA = "lazyida:gotoclipea"
 ACTION_GOTOCLIPFO = "lazyida:gotoclipfo"
 ACTION_XORDATA = "lazyida:xordata"
 ACTION_FILLNOP = "lazyida:fillnop"
+ACTION_GOTORVAVIAPA = "lazyida:gotorvaviapa"
 
 ACTION_HX_REMOVERETTYPE = "lazyida:hx_removerettype"
 ACTION_HX_COPYEA = "lazyida:hx_copyea"
@@ -131,6 +132,12 @@ class hotkey_action_handler_t(idaapi.action_handler_t):
                 else:
                     print("Goto location 0x%X (FO)" % idaapi.get_fileregion_offset(loc))
                 idc.jumpto(loc)
+        elif self.action == ACTION_GOTORVAVIAPA:
+            loc = idaapi.ask_long(0x1000, "Physical Address...")
+            rva = CalculateRVA(loc)
+            if rva != idaapi.BADADDR:
+                print("Goto Physical Address 0x%x" % rva)
+                idc.jumpto(rva)
         return 1
 
     def update(self, ctx):
@@ -590,6 +597,7 @@ class LazyIDA_t(idaapi.plugin_t):
             idaapi.action_desc_t(ACTION_COPYFO, "Copy FO", hotkey_action_handler_t(ACTION_COPYFO), "Shift-W", "Copy current FO", 0),
             idaapi.action_desc_t(ACTION_GOTOCLIPEA, "Goto clipboard EA", hotkey_action_handler_t(ACTION_GOTOCLIPEA), "Shift-G"),
             idaapi.action_desc_t(ACTION_GOTOCLIPFO, "Goto clipboard FO", hotkey_action_handler_t(ACTION_GOTOCLIPFO), "Ctrl-Shift-G"),
+			idaapi.action_desc_t(ACTION_GOTORVAVIAPA, "Goto Physical Address", hotkey_action_handler_t(ACTION_GOTORVAVIAPA), "z", "Goto Physical Address", 0),
         )
         for action in hotkey_actions:
             idaapi.register_action(action)
