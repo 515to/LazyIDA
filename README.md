@@ -24,3 +24,4 @@ Make your IDA Lazy!
       - `w`: Copy address of current item into clipboard
       - `c`: Copy name of current item into clipboard
       - `v`: Remove return type of current item
+      - `z`: go to RVA via physical address
