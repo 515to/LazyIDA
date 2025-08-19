@@ -46,6 +46,22 @@ u64 = lambda x: unpack("<Q", x)[0]
 ARCH = 0
 BITS = 0
 
+def CalculateRVA(PhAddr):
+    seg_count = idaapi.get_segm_qty()
+    
+    for i in range(seg_count):
+        seg = idaapi.getnseg(i)
+        if seg is None:
+            continue
+            
+        start_ea = seg.start_ea
+        raw_offset = idaapi.get_fileregion_offset(start_ea)
+        
+        if raw_offset is not None and raw_offset <= PhAddr:
+            return start_ea - raw_offset + PhAddr
+    
+    return -1
+
 def copy_to_clip(data):
     QApplication.clipboard().setText(data)
 
